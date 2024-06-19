@@ -1,0 +1,94 @@
+# To contribute improvements to CI/CD templates, please follow the Development guide at:
+# https://docs.gitlab.com/ee/development/cicd/templates.html
+# This specific template is located at:
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Python.gitlab-ci.yml
+
+# Official language image. Look for the different tagged releases at:
+# https://hub.docker.com/r/library/python/tags/
+image: python:latest
+
+# Change pip's cache directory to be inside the project directory since we can
+# only cache local items.
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+# https://pip.pypa.io/en/stable/topics/caching/
+cache:
+  paths:
+    - .cache/pip
+
+before_script:
+  - python --version ; pip --version  # For debugging
+  - pip install virtualenv
+  - virtualenv venv
+  - source venv/bin/activate
+
+stages:
+  - train
+  - check
+  - build
+  - deploy
+
+
+
+test:
+  variables:
+    GITLAB_TOKEN: ""
+    GITLAB_TRIGGER_TOKEN: ""
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+  stage: check
+  script:
+    - pip install pytest httpx
+    - pip install -r requirements.txt
+    - pytest
+
+lint:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+  stage: check
+  script:
+    - pip install ruff
+    - ruff format --check --diff
+
+build:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:v1.14.0-debug
+    entrypoint: [""]
+  before_script:
+    - ""
+  script:
+    - echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"auth\":\"$(printf "%s:%s" "${DOCKERHUB_USERNAME}" "${DOCKERHUB_TOKEN}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "alaboy19/mlops-project"
+      --single-snapshot
+      --compressed-caching=false
+
+deploy:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+  stage: deploy
+  script:
+    - curl ${RENDER_DEPLOY_HOOK}
+  environment: production
+
+train:
+  variables:
+    DATA_URL: ""
+    HOT_RELOAD_URL: "https://kc-mlops-project.onrender.com/reload-model"
+  rules:
+    - if: $CI_PIPELINE_TRIGGERED == "true"
+      when: always
+  stage: train
+  script:
+    - echo train
+    - pip install -r requirements.txt
+    - curl -o data.csv "$DATA_URL"
+    - python train.py data.csv
+    - "echo \"curl -f -X POST $HOT_RELOAD_URL\""
+    - "curl -f -X POST $HOT_RELOAD_URL"

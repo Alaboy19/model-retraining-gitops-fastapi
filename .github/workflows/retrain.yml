@@ -1,0 +1,33 @@
+name: Retrain Pipeline
+on:
+    workflow_dispatch:  # Allow manual triggering
+  
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 'latest' 
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download data
+        run: curl -o data.csv "${{ secrets.DATA_URL }}"
+        env:
+          DATA_URL: ${{ secrets.DATA_URL }}  # Use GitHub Secrets
+
+      - name: Train model
+        run: python train.py data.csv
+
+      - name: Trigger model reload
+        run: curl -f -X POST ${{ secrets.HOT_RELOAD_URL }}
+        env:
+          HOT_RELOAD_URL: ${{ secrets.HOT_RELOAD_URL }}  # U
