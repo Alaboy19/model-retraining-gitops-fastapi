@@ -18,6 +18,7 @@ boto3 = "1.34.51"
 python-gitlab = "4.4.0"
 evidently = "0.4.19"
 pytest = "^8.2.2"
+pygithub = "^2.3.0"
 
 
 [build-system]

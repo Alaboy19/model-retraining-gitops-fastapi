@@ -1,6 +1,7 @@
 name: Retrain Pipeline
 on:
-    workflow_dispatch:  # Allow manual triggering
+  repository_dispatch:
+    types: [trigger_my_workflow]  # Allow manual triggering
   
 jobs:
   train:
@@ -24,10 +25,10 @@ jobs:
         env:
           DATA_URL: ${{ secrets.DATA_URL }}  # Use GitHub Secrets
 
-      - name: Train model
-        run: python train.py data.csv
+      # - name: Train model
+      #   run: python train.py data.csv
 
-      - name: Trigger model reload
-        run: curl -f -X POST ${{ secrets.HOT_RELOAD_URL }}
-        env:
-          HOT_RELOAD_URL: ${{ secrets.HOT_RELOAD_URL }}  # U
+      # - name: Trigger model reload
+      #   run: curl -f -X POST ${{ secrets.HOT_RELOAD_URL }}
+      #   env:
+      #     HOT_RELOAD_URL: ${{ secrets.HOT_RELOAD_URL }}  # U
