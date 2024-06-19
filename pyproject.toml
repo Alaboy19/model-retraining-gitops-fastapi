@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "model-retrain-gitops-fastapi"
+version = "0.1.0"
+description = ""
+authors = ["Nurbolat <nurbolat.bazarbek@nu.edu.kz>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "0.110.1"
+uvicorn = "0.29.0"
+pandas = "2.2.0"
+scikit-learn = "1.4.0"
+python-multipart = "0.0.6"
+mlflow = "2.11.1"
+setuptools = "69.0.3"
+boto3 = "1.34.51"
+python-gitlab = "4.4.0"
+evidently = "0.4.19"
+pytest = "^8.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
