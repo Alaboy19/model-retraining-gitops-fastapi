@@ -17,7 +17,7 @@ for e in (
         raise ValueError(f"please set {e} env variable")
 
 
-GITHUB_TOKEN = os.environ["GITHUB_TOKEN"]
+GITHUB_TOKEN = os.environ["REPO_TOKEN"]
 
 
 class PredictRequest(BaseModel):
