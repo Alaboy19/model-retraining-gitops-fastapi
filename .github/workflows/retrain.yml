@@ -3,7 +3,7 @@ on:
   repository_dispatch:
     types: [retrain_pipeline]  # Allow manual triggering
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '* * * * *'
 jobs:
   train:
     runs-on: ubuntu-latest
