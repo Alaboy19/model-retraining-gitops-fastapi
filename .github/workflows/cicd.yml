@@ -41,6 +41,7 @@ jobs:
           source venv/bin/activate
       - name: Install dependencies and run tests
         run: |
+          REPO_TOKEN=${{secrets.REPO_TOKEN}}
           pip install -q pytest httpx
           pip install -q -r requirements.txt
           pytest
