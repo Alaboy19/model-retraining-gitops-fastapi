@@ -6,7 +6,7 @@ import uvicorn
 from fastapi import Body, Depends, FastAPI
 from pydantic import BaseModel, Field
 
-from config import EVENT_TYPE, GITLAB_PROJECT_NAME, OWNER_NAME, PROD_ALIAS, REGISTERED_MODEL_NAME, REPOS_NAME
+from config import EVENT_TYPE, OWNER_NAME, PROD_ALIAS, REGISTERED_MODEL_NAME, REPOS_NAME
 
 app = FastAPI()
 
@@ -72,7 +72,7 @@ def trigger_pipeline():
     response = requests.post(url, headers=headers, json=data)
 
     if response.status_code == 204:
-        print(f"Workflow triggered successfully!")
+        print("Workflow triggered successfully!")
     else:
         print(f"Error triggering workflow: {response.status_code} - {response.text}")
 

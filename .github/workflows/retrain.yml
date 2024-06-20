@@ -1,8 +1,8 @@
 name: Retrain Pipeline
 on:
    # Allow manual triggering
-  schedule:
-    - cron: '*/15 * * * *'
+  # schedule:
+  #   - cron: '*/15 * * * *'
   repository_dispatch:
     types: [retrain_pipeline] 
 jobs:

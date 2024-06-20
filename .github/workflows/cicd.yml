@@ -22,7 +22,7 @@ jobs:
       - name: Install and run ruff
         run: |
           pip install ruff
-          ruff check
+          ruff check 
   test:
     runs-on: ubuntu-latest
     steps:
