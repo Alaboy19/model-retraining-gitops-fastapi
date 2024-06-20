@@ -1,9 +1,9 @@
 name: CI/CD Pipeline
 
 on:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -65,7 +65,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: alaboy19/fastapi-webservice-retrain:n-bazarbek
+          tags: alaboy19/fastapi-webservice-retrain:01
 
 
   # deploy:
