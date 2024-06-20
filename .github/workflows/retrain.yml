@@ -1,9 +1,10 @@
 name: Retrain Pipeline
 on:
-  repository_dispatch:
-    types: [retrain_pipeline]  # Allow manual triggering
+   # Allow manual triggering
   schedule:
     - cron: '* * * * *'
+  repository_dispatch:
+    types: [retrain_pipeline] 
 jobs:
   train:
     runs-on: ubuntu-latest
