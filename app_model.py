@@ -62,20 +62,19 @@ class Trigger(BaseModel):
 
 @app.post("/trigger")
 def trigger_pipeline():
-    def trigger_github_actions_workflow():
-        url = f"https://api.github.com/repos/{OWNER_NAME}/{REPOS_NAME}/dispatches"
-        headers = {
-            'Authorization': f'Bearer {GITHUB_TOKEN}',
-            'Accept': 'application/vnd.github.v3+json'
-        }
-        data = {'event_type': EVENT_TYPE}
+    url = f"https://api.github.com/repos/{OWNER_NAME}/{REPOS_NAME}/dispatches"
+    headers = {
+        "Authorization": f"Bearer {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    data = {"event_type": EVENT_TYPE}
 
-        response = requests.post(url, headers=headers, json=data)
+    response = requests.post(url, headers=headers, json=data)
 
-        if response.status_code == 204:
-            print(f"Workflow triggered successfully!")
-        else:
-            print(f"Error triggering workflow: {response.status_code} - {response.text}")
+    if response.status_code == 204:
+        print(f"Workflow triggered successfully!")
+    else:
+        print(f"Error triggering workflow: {response.status_code} - {response.text}")
 
 
 @app.get("/health")
