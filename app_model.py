@@ -1,29 +1,23 @@
 import os
 from typing import Annotated, List
-
-import gitlab
+import requests
 import mlflow
 import uvicorn
 from fastapi import Body, Depends, FastAPI
 from pydantic import BaseModel, Field
 
-from config import GITLAB_PROJECT_NAME, PROD_ALIAS, REGISTERED_MODEL_NAME
+from config import EVENT_TYPE, GITLAB_PROJECT_NAME, OWNER_NAME, PROD_ALIAS, REGISTERED_MODEL_NAME, REPOS_NAME
 
 app = FastAPI()
 
 for e in (
-    "MLFLOW_TRACKING_USERNAME",
-    "MLFLOW_TRACKING_PASSWORD",
-    "AWS_ACCESS_KEY_ID",
-    "AWS_SECRET_ACCESS_KEY",
-    "GITLAB_TOKEN",
-    "GITLAB_TRIGGER_TOKEN",
+    "GITHUB_TOKEN",
 ):
     if e not in os.environ:
         raise ValueError(f"please set {e} env variable")
 
-GITLAB_TOKEN = os.environ["GITLAB_TOKEN"]
-GITLAB_TRIGGER_TOKEN = os.environ["GITLAB_TRIGGER_TOKEN"]
+
+GITHUB_TOKEN = os.environ["GITHUB_TOKEN"]
 
 
 class PredictRequest(BaseModel):
@@ -67,18 +61,21 @@ class Trigger(BaseModel):
 
 
 @app.post("/trigger")
-def trigger_pipeline(data: Annotated[Trigger, Body()]):
-    gl = gitlab.Gitlab(url="https://git.lab.karpov.courses", private_token=GITLAB_TOKEN)
-    project = gl.projects.get(GITLAB_PROJECT_NAME)
+def trigger_pipeline():
+    def trigger_github_actions_workflow():
+        url = f"https://api.github.com/repos/{OWNER_NAME}/{REPOS_NAME}/dispatches"
+        headers = {
+            'Authorization': f'Bearer {GITHUB_TOKEN}',
+            'Accept': 'application/vnd.github.v3+json'
+        }
+        data = {'event_type': EVENT_TYPE}
 
-    project.trigger_pipeline(
-        "main",
-        GITLAB_TRIGGER_TOKEN,
-        {
-            "DATA_URL": data.data_url,
-            "HOT_RELOAD_URL": "https://kc-mlops-project.onrender.com/reload-model",
-        },
-    )
+        response = requests.post(url, headers=headers, json=data)
+
+        if response.status_code == 204:
+            print(f"Workflow triggered successfully!")
+        else:
+            print(f"Error triggering workflow: {response.status_code} - {response.text}")
 
 
 @app.get("/health")
