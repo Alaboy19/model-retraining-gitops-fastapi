@@ -80,7 +80,7 @@ deploy:
 train:
   variables:
     DATA_URL: ""
-    HOT_RELOAD_URL: "https://kc-mlops-project.onrender.com/reload-model"
+    HOT_RELOAD_URL: "https://fastapi-webservice-retrain-01.onrender.com/reload-model"
   rules:
     - if: $CI_PIPELINE_TRIGGERED == "true"
       when: always

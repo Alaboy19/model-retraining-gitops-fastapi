@@ -2,7 +2,6 @@ import os
 
 PROD_ALIAS = "prod"
 REGISTERED_MODEL_NAME = "mlops-project-model"
-GITLAB_PROJECT_NAME = "hardml/mlops-project-solution"
 OWNER_NAME = "Alaboy19"
 REPOS_NAME = "model-retrain-gitops-fastapi"
 EVENT_TYPE = "retrain_pipeline"

@@ -30,7 +30,7 @@ jobs:
       - name: Train model
         run: python train.py data.csv
 
-      # - name: Trigger model reload
-      #   run: curl -f -X POST ${{ secrets.HOT_RELOAD_URL }}
-      #   env:
-      #     HOT_RELOAD_URL: ${{ secrets.HOT_RELOAD_URL }}  # U
+      - name: Trigger model reload
+        run: curl -f -X POST ${{ secrets.HOT_RELOAD_URL }}
+        env:
+          HOT_RELOAD_URL: ${{ secrets.HOT_RELOAD_URL }}  
