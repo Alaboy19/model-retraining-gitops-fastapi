@@ -20,7 +20,7 @@ jobs:
           cache-dependency-path: requirements.txt
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -q -r requirements.txt
 
       - name: Download data
         run: curl -o data.csv "${{ secrets.DATA_URL }}"

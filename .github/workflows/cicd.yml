@@ -41,7 +41,7 @@ jobs:
           source venv/bin/activate
       - name: Install dependencies and run tests
         run: |
-          pip install - q pytest httpx
+          pip install -q pytest httpx
           pip install -q -r requirements.txt
           pytest
 
