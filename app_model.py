@@ -11,7 +11,7 @@ from config import EVENT_TYPE, OWNER_NAME, PROD_ALIAS, REGISTERED_MODEL_NAME, RE
 app = FastAPI()
 
 for e in (
-    "GITHUB_TOKEN",
+    "REPO_TOKEN",
 ):
     if e not in os.environ:
         raise ValueError(f"please set {e} env variable")
