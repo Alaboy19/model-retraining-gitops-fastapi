@@ -14,3 +14,7 @@ This is a one scenario of ML model retraining pipeline performed with GitOps too
 the full pipeline for model retraining with fastapi and github actions
 ## Flowchart of the system ## 
 ![image](https://github.com/Alaboy19/model-retrain-gitops-fastapi/assets/47283347/fbc5aae8-3b17-41d4-bf90-74007c32dc69)
+
+## MLOps mature best-practices as reference ## 
+![image](https://github.com/Alaboy19/model-retraining-gitops-fastapi/assets/47283347/64412c18-9fd3-47d0-b724-07b9f5d889be)
+
