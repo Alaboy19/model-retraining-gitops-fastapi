@@ -39,9 +39,10 @@ This is a one scenario of ML model retraining pipeline performed with GitOps too
 ``` OR you can install poetry and run ```poetry install```
 2. Generate token for access to your dockerhub account 
 3. On github actions serctets → add repo secrets for DATA_URL, HOT_RELOAD_URL(route to /reload-model)
-4. Also, generate REPO_TOKEN as a acess to your repo and add it to your repo secrets in action, it is needed to authentificate to your repo when requesting the trigger of retrain.yml externally from fasdtapi service on render
-5. Follow along the .github.workflows.ci-cd.yml and retrain.yml files
-6. If scheduled retraining and redeploy is needed, uncomment the cron shedule in .github/workflows/retrain.yml
+4. Also, generate REPO_TOKEN as a acess to your repo and add it to your repo variables in action, it is needed to authentificate to your repo when requesting the trigger of retrain.yml externally from fasdtapi service on render
+5. Also, add MLFLOW_TRACKING_URI that got from GCP to repo variables 
+6. Follow along the .github.workflows.ci-cd.yml and retrain.yml files
+7. If scheduled retraining and redeploy is needed, uncomment the cron shedule in .github/workflows/retrain.yml
 
 ## MLOps mature best-practices as reference ## 
 ![image](https://github.com/Alaboy19/model-retraining-gitops-fastapi/assets/47283347/64412c18-9fd3-47d0-b724-07b9f5d889be)
