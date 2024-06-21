@@ -13,18 +13,18 @@ This is a one scenario of ML model retraining pipeline performed with GitOps too
 - model reproducability and versioning
 - assesing and comparing models based on metrics
 - assigning aliases for models that ready for different environment such as dev, prod
-- 
+  
 ### FastAPI ###
 - lightweight, simple and fast protocol that works async with ASGI server Uvicorn
 - compatable with type hints in pyhthon
 - integrated with Pydantic for convinent data types validation
 - integrated with OpenAPI, automaticlaly generating the API docs and Swagger interface under the box in route /docs
-- 
+  
 ### CI-CD ###
 - Since it is online serving, there is need for fast packaging and deployment of the service to prod, therefore CI-CD is better option than orchestrators such as Ariflow, Prefect
 - Any pushes or pull request must be tested before shipping to prodution, CI-CD is better option there as well
 - Orchestrators could be used further for preparing the data for feature store as a abstraction from data engineerin
-- 
+  
 ### render ###
 - Free way of virtual machines that lets to deploy service from image for docker registry
 
