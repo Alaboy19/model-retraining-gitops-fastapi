@@ -3,6 +3,7 @@ on:
    # Allow manual triggering
   # schedule:
   #   - cron: '*/15 * * * *'
+  workflow_dispatch:
   repository_dispatch:
     types: [retrain_pipeline] 
 jobs:
