@@ -6,6 +6,7 @@ OWNER_NAME = "Alaboy19"
 REPOS_NAME = "model-retrain-gitops-fastapi"
 EVENT_TYPE = "retrain_pipeline"
 
-os.environ["MLFLOW_TRACKING_URI"] = "https://my-cloud-run-service-1-um3dh5zufa-uc.a.run.app"
-os.environ["AWS_ENDPOINT_URL"] = "https://storage.yandexcloud.net"
+# put the correct service URI from the endpoint provided from step hosting MLflow on GCP, where whatever MLflow regsitry URI you have 
+os.environ["MLFLOW_TRACKING_URI"] = "https://my-cloud-run-service-1-{something_here}.a.run.app"
+
 
