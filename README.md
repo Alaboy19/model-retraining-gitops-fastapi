@@ -1,4 +1,4 @@
-# model-retraining-gitops-fastapi
+# model retraining pipeline  with gitops and fastapi
 This is a one scenario of ML model retraining pipeline performed with GitOps tools, GitHub Actions. Usually, model retraining is needed either by some trigger conditions such as data drift or some regular retraining pipeline every week(or so) for concept drifts. Both options are considered in this pipeline. Generally, this tiny self hosted emulation of system design for MLOps that is based on the best-practice recommendations from Google MLops https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning
 
 ## Flowchart of the system ## 
